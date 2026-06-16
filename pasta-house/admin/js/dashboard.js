@@ -2,6 +2,7 @@ const state = {
   admin: null,
   products: [],
   orders: [],
+  customers: [],
   activeSection: "overview"
 };
 
@@ -28,9 +29,7 @@ function showNotice(message, type = "error") {
   notice.textContent = message;
   notice.className = `notice ${type}`;
   notice.hidden = false;
-  window.setTimeout(() => {
-    notice.hidden = true;
-  }, 4500);
+  window.setTimeout(() => { notice.hidden = true; }, 4500);
 }
 
 function protectPage() {
@@ -57,11 +56,18 @@ async function loadOrders() {
   renderStats();
 }
 
+async function loadCustomers() {
+  state.customers = await AdminAPI.data("/customers-list");
+  renderCustomers();
+  renderStats();
+}
+
 function renderStats() {
   document.querySelector("#stat-products").textContent = state.products.length;
-  document.querySelector("#stat-available").textContent = state.products.filter((product) => product.available !== false).length;
+  document.querySelector("#stat-available").textContent = state.products.filter((p) => p.available !== false).length;
   document.querySelector("#stat-orders").textContent = state.orders.length;
-  document.querySelector("#stat-paid").textContent = state.orders.filter((order) => order.paymentStatus === "paid").length;
+  document.querySelector("#stat-paid").textContent = state.orders.filter((o) => o.paymentStatus === "paid").length;
+  document.querySelector("#stat-customers").textContent = state.customers.length;
 }
 
 function availabilityLabel(product) {
@@ -72,12 +78,10 @@ function availabilityLabel(product) {
 
 function renderProducts() {
   const tbody = document.querySelector("#products-table");
-
   if (!state.products.length) {
     tbody.innerHTML = '<tr><td colspan="5">No products yet.</td></tr>';
     return;
   }
-
   tbody.innerHTML = state.products.map((product) => `
     <tr>
       <td>
@@ -105,23 +109,17 @@ function renderProducts() {
 }
 
 function orderItemsLabel(order) {
-  const items = (order.items || [])
-    .map((item) => `${escapeHtml(item.name)} x${item.quantity}`)
-    .join(", ");
-  const extras = (order.extras || [])
-    .map((extra) => escapeHtml(extra.name))
-    .join(", ");
+  const items = (order.items || []).map((item) => `${escapeHtml(item.name)} x${item.quantity}`).join(", ");
+  const extras = (order.extras || []).map((extra) => escapeHtml(extra.name)).join(", ");
   return [items, extras ? `Extras: ${extras}` : ""].filter(Boolean).join("<br>");
 }
 
 function renderOrders() {
   const tbody = document.querySelector("#orders-table");
-
   if (!state.orders.length) {
     tbody.innerHTML = '<tr><td colspan="6">No orders yet.</td></tr>';
     return;
   }
-
   tbody.innerHTML = state.orders.map((order) => {
     const customerName = order.customer?.name || order.customerName || order.guestName || "Guest";
     const phone = order.customer?.phone || order.guestPhone || "";
@@ -153,6 +151,24 @@ function renderOrders() {
   }).join("");
 }
 
+function renderCustomers() {
+  const tbody = document.querySelector("#customers-table");
+  if (!state.customers.length) {
+    tbody.innerHTML = '<tr><td colspan="6">No registered customers yet.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = state.customers.map((customer) => `
+    <tr>
+      <td><span class="row-title">${escapeHtml(customer.name)}</span></td>
+      <td>${escapeHtml(customer.email)}</td>
+      <td>${escapeHtml(customer.phone || "-")}</td>
+      <td>${escapeHtml(customer.savedAddress || "-")}</td>
+      <td>${customer.orderCount || 0}</td>
+      <td>${formatDate(customer.createdAt)}</td>
+    </tr>
+  `).join("");
+}
+
 function switchSection(section) {
   state.activeSection = section;
   document.querySelectorAll(".nav-item").forEach((button) => {
@@ -163,6 +179,8 @@ function switchSection(section) {
   });
   document.querySelector("#page-title").textContent =
     section === "overview" ? "Dashboard" : section[0].toUpperCase() + section.slice(1);
+
+  if (section === "customers") loadCustomers();
 }
 
 function updateAvailabilityField() {
@@ -249,10 +267,7 @@ async function handleProductAction(event) {
     try {
       await AdminAPI.data(`/products/${product._id}`, {
         method: "PUT",
-        body: JSON.stringify({
-          available: product.available === false,
-          availableFrom: null
-        })
+        body: JSON.stringify({ available: product.available === false, availableFrom: null })
       });
       await loadProducts();
       showNotice("Availability updated.", "success");
@@ -306,6 +321,7 @@ function bindEvents() {
   document.querySelector("#products-table").addEventListener("click", handleProductAction);
   document.querySelector("#orders-table").addEventListener("change", handleOrderStatus);
   document.querySelector("#refresh-orders-btn").addEventListener("click", loadOrders);
+  document.querySelector("#refresh-customers-btn").addEventListener("click", loadCustomers);
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -313,7 +329,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   bindEvents();
 
   try {
-    await Promise.all([loadAdmin(), loadProducts(), loadOrders()]);
+    await Promise.all([loadAdmin(), loadProducts(), loadOrders(), loadCustomers()]);
   } catch (error) {
     showNotice(error.message || "Unable to load dashboard.");
   }
