@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin Login - Pasta House</title>
+  <link rel="icon" type="image/png" href="../assets/favicon.png" />
+  <link rel="stylesheet" href="css/admin.css" />
+  <script src="../config.js"></script>
+</head>
+<body class="auth-page">
+  <main class="auth-shell">
+    <section class="auth-card" aria-labelledby="admin-login-title">
+      <div class="brand-mark">
+        <img src="../assets/logo.png" alt="Pasta House" />
+        <div>
+          <strong>Pasta House</strong>
+          <span>Admin operations</span>
+        </div>
+      </div>
+      <p class="eyebrow">Admin Access</p>
+      <h1 id="admin-login-title">Dashboard Login</h1>
+      <p>Manage menu availability, orders, and checkout status.</p>
+      <div class="notice" id="login-notice" hidden></div>
+      <form class="form-stack" id="admin-login-form">
+        <label>
+          Username
+          <input id="username" type="text" autocomplete="username" required />
+        </label>
+        <label>
+          Password
+          <input id="password" type="password" autocomplete="current-password" required />
+        </label>
+        <button class="primary-btn" type="submit">Log In</button>
+      </form>
+    </section>
+  </main>
+  <script src="js/api.js"></script>
+  <script src="js/login.js"></script>
+</body>
+</html>

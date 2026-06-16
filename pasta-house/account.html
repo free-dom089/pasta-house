@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Account - Pasta House</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<header class="navbar" role="banner">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo" aria-label="Pasta House - Home">
+      <img src="assets/logo.png" alt="Pasta House logo" width="44" height="44" />
+      <span class="nav-logo-text">Pasta <span>House</span></span>
+    </a>
+    <nav aria-label="Primary navigation">
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="nav-cta"></div>
+  </div>
+</header>
+
+<main class="account-shell">
+  <div class="account-layout">
+    <section class="account-panel" aria-labelledby="account-title">
+      <p class="section-label">My Profile</p>
+      <h1 id="account-title">Account</h1>
+      <p id="account-email"></p>
+      <div class="account-notice" id="account-notice"></div>
+      <form class="account-form" id="account-form">
+        <div class="form-group">
+          <label class="form-label" for="account-name">Full Name</label>
+          <input class="form-control" type="text" id="account-name" autocomplete="name" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="account-phone">Phone Number</label>
+          <input class="form-control" type="tel" id="account-phone" autocomplete="tel" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="account-address">Saved Address</label>
+          <input class="form-control" type="text" id="account-address" autocomplete="street-address" />
+        </div>
+        <button class="btn btn-gold btn-md" type="submit" style="justify-content:center;">Save Profile</button>
+      </form>
+    </section>
+
+    <section class="account-panel" aria-labelledby="orders-title">
+      <p class="section-label">Order History</p>
+      <h1 id="orders-title">Orders</h1>
+      <div class="order-history-list" id="orders-list">
+        <p class="form-helper">Loading orders...</p>
+      </div>
+    </section>
+  </div>
+</main>
+
+<script src="config.js" defer></script>
+<script src="js/script.js" defer></script>
+<script src="js/account.js" defer></script>
+</body>
+</html>

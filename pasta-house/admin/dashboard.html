@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin Dashboard - Pasta House</title>
+  <link rel="icon" type="image/png" href="../assets/favicon.png" />
+  <link rel="stylesheet" href="css/admin.css" />
+  <script src="../config.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="admin-brand" href="dashboard.html">
+        <img src="../assets/logo.png" alt="Pasta House" />
+        <span>Pasta House</span>
+      </a>
+      <nav class="side-nav" aria-label="Admin navigation">
+        <button class="nav-item active" data-section="overview">Overview</button>
+        <button class="nav-item" data-section="products">Products</button>
+        <button class="nav-item" data-section="orders">Orders</button>
+      </nav>
+      <button class="ghost-btn logout-btn" id="logout-btn">Log Out</button>
+    </aside>
+
+    <main class="main-panel">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Operations</p>
+          <h1 id="page-title">Dashboard</h1>
+        </div>
+        <div class="admin-user">
+          <span id="admin-name">Admin</span>
+        </div>
+      </header>
+
+      <div class="notice" id="dashboard-notice" hidden></div>
+
+      <section class="panel-section active" id="overview-section">
+        <div class="stats-grid">
+          <article class="stat-card">
+            <span>Total Products</span>
+            <strong id="stat-products">0</strong>
+          </article>
+          <article class="stat-card">
+            <span>Available Items</span>
+            <strong id="stat-available">0</strong>
+          </article>
+          <article class="stat-card">
+            <span>Total Orders</span>
+            <strong id="stat-orders">0</strong>
+          </article>
+          <article class="stat-card">
+            <span>Paid Orders</span>
+            <strong id="stat-paid">0</strong>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel-section" id="products-section">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Menu Control</p>
+            <h2>Products</h2>
+          </div>
+          <button class="primary-btn" id="new-product-btn">Add Product</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Availability</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="products-table"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel-section" id="orders-section">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Customer Orders</p>
+            <h2>Orders</h2>
+          </div>
+          <button class="ghost-btn" id="refresh-orders-btn">Refresh</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Customer</th>
+                <th>Items</th>
+                <th>Total</th>
+                <th>Payment</th>
+                <th>Status</th>
+                <th>Created</th>
+              </tr>
+            </thead>
+            <tbody id="orders-table"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal" id="product-modal" aria-hidden="true">
+    <div class="modal-card">
+      <div class="modal-head">
+        <div>
+          <p class="eyebrow">Menu Item</p>
+          <h2 id="product-modal-title">Add Product</h2>
+        </div>
+        <button class="icon-btn" id="close-product-modal" aria-label="Close product form">×</button>
+      </div>
+
+      <form id="product-form" class="form-grid">
+        <input type="hidden" id="product-id" />
+        <label>
+          Name
+          <input id="product-name" type="text" required />
+        </label>
+        <label>
+          Category
+          <input id="product-category" type="text" placeholder="Main Dishes or Extras" required />
+        </label>
+        <label>
+          Price
+          <input id="product-price" type="number" min="0" step="1" required />
+        </label>
+        <label>
+          Image
+          <input id="product-image" type="text" placeholder="assets/food-1.jpg or https://..." required />
+        </label>
+        <label class="wide">
+          Description
+          <textarea id="product-description" rows="4" required></textarea>
+        </label>
+        <label class="check-row wide">
+          <input id="product-available" type="checkbox" checked />
+          Available for ordering
+        </label>
+        <label class="wide" id="available-from-wrap" hidden>
+          Available again from
+          <input id="product-available-from" type="datetime-local" />
+        </label>
+        <div class="form-actions wide">
+          <button class="ghost-btn" type="button" id="cancel-product-btn">Cancel</button>
+          <button class="primary-btn" type="submit">Save Product</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

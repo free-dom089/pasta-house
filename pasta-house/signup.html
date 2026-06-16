@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up - Pasta House</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<header class="navbar" role="banner">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo" aria-label="Pasta House - Home">
+      <img src="assets/logo.png" alt="Pasta House logo" width="44" height="44" />
+      <span class="nav-logo-text">Pasta <span>House</span></span>
+    </a>
+    <nav aria-label="Primary navigation">
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="nav-cta"></div>
+  </div>
+</header>
+
+<main class="auth-page-shell">
+  <section class="auth-card" aria-labelledby="signup-title">
+    <p class="section-label">Customer Account</p>
+    <h1 id="signup-title">Create Account</h1>
+    <p>Save your details and keep every Pasta House order in one place.</p>
+    <div class="auth-notice" id="signup-notice"></div>
+    <form class="auth-form" id="signup-form">
+      <div class="form-group">
+        <label class="form-label" for="signup-name">Full Name</label>
+        <input class="form-control" type="text" id="signup-name" autocomplete="name" required />
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="signup-email">Email Address</label>
+        <input class="form-control" type="email" id="signup-email" autocomplete="email" required />
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="signup-phone">Phone Number</label>
+        <input class="form-control" type="tel" id="signup-phone" autocomplete="tel" />
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="signup-password">Password</label>
+        <input class="form-control" type="password" id="signup-password" autocomplete="new-password" required minlength="8" />
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="signup-confirm">Confirm Password</label>
+        <input class="form-control" type="password" id="signup-confirm" autocomplete="new-password" required minlength="8" />
+      </div>
+      <button class="btn btn-gold btn-md" type="submit" style="justify-content:center;">Create Account</button>
+    </form>
+    <p class="auth-switch">Already have an account? <a href="login.html">Log in</a></p>
+  </section>
+</main>
+
+<script src="config.js" defer></script>
+<script src="js/script.js" defer></script>
+<script src="js/signup.js" defer></script>
+</body>
+</html>
