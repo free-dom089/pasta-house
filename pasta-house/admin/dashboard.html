@@ -19,6 +19,7 @@
         <button class="nav-item active" data-section="overview">Overview</button>
         <button class="nav-item" data-section="products">Products</button>
         <button class="nav-item" data-section="orders">Orders</button>
+        <button class="nav-item" data-section="customers">Customers</button>
       </nav>
       <button class="ghost-btn logout-btn" id="logout-btn">Log Out</button>
     </aside>
@@ -53,6 +54,10 @@
           <article class="stat-card">
             <span>Paid Orders</span>
             <strong id="stat-paid">0</strong>
+          </article>
+          <article class="stat-card">
+            <span>Registered Customers</span>
+            <strong id="stat-customers">0</strong>
           </article>
         </div>
       </section>
@@ -102,6 +107,31 @@
               </tr>
             </thead>
             <tbody id="orders-table"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel-section" id="customers-section">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Site Members</p>
+            <h2>Customers</h2>
+          </div>
+          <button class="ghost-btn" id="refresh-customers-btn">Refresh</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Saved Address</th>
+                <th>Orders</th>
+                <th>Joined</th>
+              </tr>
+            </thead>
+            <tbody id="customers-table"></tbody>
           </table>
         </div>
       </section>
