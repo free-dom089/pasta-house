@@ -729,7 +729,9 @@ async function payNow() {
       throw new Error("Payment could not be verified");
     }
 
-    window.location.href = `order-confirmation.html?orderId=${encodeURIComponent(order._id)}`;
+    const waMessage = buildWhatsAppSummary("Paid online");
+window.open(`https://wa.me/${CONFIG.WA_NUMBER}?text=${encodeURIComponent(waMessage)}`, "_blank");
+window.location.href = `order-confirmation.html?orderId=${encodeURIComponent(order._id)}`;
   } catch (error) {
     showToast(error.message || "Unable to complete checkout", "error");
     showPaymentStatus("pending", "Online checkout did not complete. You can continue on WhatsApp with this order summary.");
