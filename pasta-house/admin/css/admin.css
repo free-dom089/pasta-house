@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400&display=swap');
 :root {
   --black: #050505;
   --gold: #C9932B;
@@ -124,11 +125,11 @@ h2 {
 }
 
 h1 {
-  font-size: clamp(28px, 5vw, 40px);
+  font-size: clamp(18px, 3vw, 28px);
 }
 
 h2 {
-  font-size: 24px;
+  font-size: 18px;
 }
 
 p {
@@ -347,7 +348,7 @@ select:focus {
 .stat-card strong {
   display: block;
   margin-top: 8px;
-  font-size: 34px;
+  font-size: 20px;
 }
 
 .section-head {
